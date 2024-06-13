@@ -1,0 +1,48 @@
+# Makefile for compiling individual functions from a library
+
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+
+# Source files directory
+SRC_DIR = ./src
+
+# Object files directory
+OBJ_DIR = ./obj
+
+# Library name
+LIB_NAME = libft.a
+
+# List of source files (replace with your function names)
+SRC_FILES = ft_isalpha.c
+            # Add more as needed
+
+# Generate object file names
+OBJ_FILES = $(patsubst %.c,$(OBJ_DIR)/%.o,$(notdir $(SRC_FILES)))
+
+# Default target
+all: $(LIB_NAME)
+
+# Rule to compile .c files into .o files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+    $(CC) $(CFLAGS) -c $< -o $@
+
+# Rule to create the library
+$(LIB_NAME): $(OBJ_FILES)
+    ar rcs $@ $^
+
+# Create the object directory
+$(OBJ_DIR):
+    mkdir -p $(OBJ_DIR)
+
+# Clean up object files and library
+clean:
+    rm -rf $(OBJ_DIR)
+
+# Clean up object files, library, and executables
+fclean: clean
+    rm -f $(LIB_NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

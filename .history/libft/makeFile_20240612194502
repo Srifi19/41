@@ -1,0 +1,34 @@
+.DEFAULT_GOAL := all
+
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+
+# Path to your libft directory
+LIBFT_PATH = /mnt/c/Users/sami/Desktop/41/41/libft
+
+# List of source files (replace with your implemented functions)
+SRC_FILES = ft_isalpha.c \
+            # Add more .c files as needed for other functions
+
+# Object files (automatically generated from source files)
+OBJS = $(SRC_FILES:.c=.o)
+
+# Target to build the library
+all: libft.a
+    @echo "Library build complete."
+
+# Rule to compile each .c file into a .o file
+%.o: %.c
+    $(CC) $(CFLAGS) -c $< -o $@
+
+# Target to create the library
+libft.a: $(OBJS)
+    ar rcs $@ $(OBJS)
+
+# Target to clean up object files and library
+clean:
+    rm -f $(OBJS) libft.a
+    @echo "Clean complete."
+
+.PHONY: all clean

@@ -1,0 +1,28 @@
+SRC			= ft_1.c ft_2.c ft_3.c ft_4.c ft_5.c ft_6.c ft_7.c ft_8.c ft_9.c
+OBJS		= ${SRC:.c=.o}
+HEAD		= libft.h
+GCC			= gcc
+CFLAGS		= -Wall -Wextra -Werror
+TEST_SRC	= main.c
+TEST_OUT	= test.out
+
+all:		${TEST_OUT}
+
+.c.o:
+			@${GCC} ${CFLAGS} -c $< -o ${<:.c=.o}
+
+${TEST_OUT}:	${OBJS} ${TEST_SRC}
+			@${GCC} ${CFLAGS} -o ${TEST_OUT} ${OBJS} ${TEST_SRC}
+
+run:		fclean ${TEST_OUT}
+			@./${TEST_OUT}
+
+clean:
+			@rm -f ${OBJS}
+
+fclean:		clean
+			@rm -f ${TEST_OUT}
+
+re:			fclean all
+
+.PHONY:		all clean fclean re run

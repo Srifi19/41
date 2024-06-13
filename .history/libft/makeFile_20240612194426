@@ -1,0 +1,30 @@
+.DEFAULT_GOAL := all
+
+# Variables
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+LIBFT_PATH = /mnt/c/Users/sami/Desktop/41/41/libft
+
+# List of source files (replace with your function names)
+SRC_FILES = ft_isalpha.c \
+            ft_memset.c \
+            ft_strlen.c \
+            # Add more as needed
+
+# Object files (automatically generated from source files)
+OBJS = $(SRC_FILES:%.c=%.o)
+
+# Targets
+all: $(OBJS)
+    @echo "Building library..."
+    @ar rcs libft.a $(OBJS)
+    @echo "Library build complete."
+
+%.o: %.c
+    @$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+    @rm -f $(OBJS) libft.a
+    @echo "Clean complete."
+
+.PHONY: all clean
